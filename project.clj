@@ -37,7 +37,7 @@
 
   :min-lein-version "2.0.0"
   
-  :source-paths ["src/clj"]
+  :source-paths ["src/clj" "src/cljc"]
   :test-paths ["test/clj"]
   :resource-paths ["resources" "target/cljsbuild"]
   :target-path "target/%s/"
@@ -45,7 +45,7 @@
 
   :plugins [[lein-cljsbuild "1.1.8"]]
 
-  :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
+  :cljsbuild {:builds {:app {:source-paths ["src/cljs" "src/cljc"]
                              :compiler {:output-to "target/cljsbuild/public/js/app.js"
                                         :output-dir "target/cljsbuild/public/js/out"
                                         :main "guestbook.core"
