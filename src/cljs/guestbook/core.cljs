@@ -5,32 +5,31 @@
             [clojure.string :as string]
             [guestbook.validation :refer [validate-message]]))
 
-(defn send-message! [fields errors]
+(defn send-message! [fields errors messages]
   (if-let [validation-errors (validate-message @fields)]
     (reset! errors validation-errors)
     (POST "/message"
-        {:format        :json
-         :headers       {"Accept"       "application/transit+json"
-                         "x-csrf-token" (.-value (.getElementById js/document "token"))}
-         :params        @fields
-         :handler       (fn [r]
-                          (.log js/console (str "response:" r))
-                          (reset! errors nil))
-         :error-handler (fn [e]
-                          (.error js/console (str "error:" e))
-                          (reset! errors (-> e :response :errors)))})))
+          {:format        :json
+           :headers       {"Accept"       "application/transit+json"
+                           "x-csrf-token" (.-value (.getElementById js/document "token"))}
+           :params        @fields
+           :handler       (fn [_]
+                            (swap! messages conj (assoc @fields :timestamp (js/Date.)))
+                            (reset! fields nil)
+                            (reset! errors nil))
+           :error-handler (fn [e]
+                            (.error js/console (str "error:" e))
+                            (reset! errors (-> e :response :errors)))})))
 
 (defn errors-component [errors id]
   (when-let [error (id @errors)]
     [:div.notification.is-danger (string/join error)]))
 
-(defn message-form []
+(defn message-form [messages]
   (let [fields (r/atom {})
         errors (r/atom nil)]
     (fn []
       [:div
-       [:p "Name: " (:name @fields)]
-       [:p "Message: " (:message @fields)]
        [errors-component errors :server-error]
        [:div.field
         [:label.label {:for :name} "Name"]
@@ -51,15 +50,33 @@
                              assoc :message (-> % .-target .-value))}]]
        [:input.button.is-primary
         {:type     :submit
-         :on-click #(send-message! fields errors)
+         :on-click #(send-message! fields errors messages)
          :value    "comment"}]])))
 
+(defn get-messages [messages]
+  (GET "/messages"
+       {:headers {"Accept" "application/transit+json"}
+        :handler #(reset! messages (:messages %))}))
 
+(defn message-list [messages]
+  (println messages)
+  [:ul.messages
+   (for [{:keys [timestamp message name]} @messages]
+     ^{:key timestamp}
+     [:li
+      [:time (.toLocaleString timestamp)]
+      [:p message]
+      [:p " - " name]])])
 
 (defn home []
-  [:div.content>div.columns.is-centered>div.column.is-two-thirds
-   [:div.columns>div.column
-    [message-form]]])
+  (let [messages (r/atom nil)]
+    (get-messages messages)
+    [:div.content>div.columns.is-centered>div.column.is-two-thirds
+     [:div.columns>div.column
+      [:h3 "Messages"]
+      [message-list messages]]
+     [:div.columns>div.column
+      [message-form messages]]]))
 
 (dom/render
   [home]
