@@ -42,7 +42,8 @@
                            "x-csrf-token" (.-value (.getElementById js/document "token"))}
            :params        @fields
            :handler       (fn [_]
-                            (rf/dispatch [:message/add (assoc @fields :timestamp (js/Date.))])
+                            (rf/dispatch [:message/add (-> @fields
+                                                           (assoc :timestamp (js/Date.)))])
                             (reset! fields nil)
                             (reset! errors nil))
            :error-handler (fn [e]
@@ -101,13 +102,13 @@
     (fn []
       [:div.content>div.columns.is-centered>div.column.is-two-thirds
        (if @(rf/subscribe [:messages/loading?])
-        [:h3 "Loading messages..."]
-        [:div
-         [:div.columns>div.column
-          [:h3 "Messages"]
-          [message-list messages]]
-         [:div.columns>div.column
-          [message-form messages]]])])))
+         [:h3 "Loading messages..."]
+         [:div
+          [:div.columns>div.column
+           [:h3 "Messages"]
+           [message-list messages]]
+          [:div.columns>div.column
+           [message-form messages]]])])))
 
 (defn ^:dev/after-load mount-components []
   (rf/clear-subscription-cache!)
