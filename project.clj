@@ -8,6 +8,9 @@
                  [cljs-ajax "0.8.4"]
                  [clojure.java-time "0.3.3"]
                  [com.h2database/h2 "1.4.200"]
+                 [com.google.javascript/closure-compiler-unshaded "v20200830" :scope "provided"]
+                 [org.clojure/google-closure-library "0.0-20210811-6da97fe1" :scope "provided"]
+                 [thheller/shadow-cljs "2.15.2" :scope "provided"]
                  [conman "0.9.1"]
                  [cprop "0.1.19"]
                  [expound "0.8.10"]
@@ -38,28 +41,13 @@
 
   :min-lein-version "2.0.0"
   
-  :source-paths ["src/clj" "src/cljc"]
+  :source-paths ["src/clj" "src/cljc" "src/cljs"]
   :test-paths ["test/clj"]
   :resource-paths ["resources" "target/cljsbuild"]
   :target-path "target/%s/"
   :main ^:skip-aot guestbook.core
 
-  :plugins [[lein-cljsbuild "1.1.8"]
-            [lein-ancient "1.0.0-RC3"]]
-
-  :cljsbuild {:builds {:app {:source-paths ["src/cljs" "src/cljc"]
-                             :compiler {:output-to "target/cljsbuild/public/js/app.js"
-                                        :output-dir "target/cljsbuild/public/js/out"
-                                        :main "guestbook.core"
-                                        :asset-path "/js/out"
-                                        :optimizations :none
-                                        :source-map true
-                                        :pretty-print true}}}
-              :clean-targets ^{:protect false}
-              [:target-path
-               [:cljsbuild :builds :app :compiler :output-dir]
-               [:cljsbuild :builds :app :compiler :output-to]]
-              }
+  :plugins [[lein-ancient "1.0.0-RC3"]]
 
   :profiles
   {:uberjar {:omit-source true
@@ -75,7 +63,8 @@
                   :dependencies [[pjstadig/humane-test-output "0.11.0"]
                                  [prone "2021-04-23"]
                                  [ring/ring-devel "1.9.4"]
-                                 [ring/ring-mock "0.4.0"]]
+                                 [ring/ring-mock "0.4.0"]
+                                 [binaryage/devtools "1.0.2"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.24.1"]
                                  [jonase/eastwood "0.3.5"]] 
                   
