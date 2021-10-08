@@ -9,8 +9,8 @@
                  [clojure.java-time "0.3.3"]
                  [com.h2database/h2 "1.4.200"]
                  [com.google.javascript/closure-compiler-unshaded "v20200830" :scope "provided"]
-                 [org.clojure/google-closure-library "0.0-20210811-6da97fe1" :scope "provided"]
-                 [thheller/shadow-cljs "2.15.2" :scope "provided"]
+                 [org.clojure/google-closure-library "0.0-20191016-6ae1f72f" :scope "provided"]
+                 [thheller/shadow-cljs "2.11.4" :scope "provided"]
                  [conman "0.9.1"]
                  [cprop "0.1.19"]
                  [expound "0.8.10"]
@@ -76,5 +76,5 @@
                                (pjstadig.humane-test-output/activate!)]}
    :project/test {:jvm-opts ["-Dconf=test-config.edn" ]
                   :resource-paths ["env/test/resources"] }
-   :profiles/dev {}
+   :profiles/dev {:source-paths ["env/dev/clj" "env/dev/cljc" "env/dev/cljs"]}
    :profiles/test {}})

@@ -81,7 +81,7 @@
          :on-click #(send-message! fields errors)
          :value    "comment"}]])))
 
-(defn get-messages [messages]
+(defn get-messages []
   (GET "/api/messages"
        {:headers {"Accept" "application/transit+json"}
         :handler #(rf/dispatch [:messages/set (:messages %)])}))
@@ -98,18 +98,25 @@
 
 (defn home []
   (let [messages (rf/subscribe [:messages/list])]
-    (rf/dispatch [:app/initialize])
-    (get-messages messages)
     (fn []
-      (if @(rf/subscribe [:messages/loading?])
-        [:div>div.row>div.spa12>h3 "Loading messages..."]
-        [:div.content>div.columns.is-centered>div.column.is-two-thirds
+      [:div.content>div.columns.is-centered>div.column.is-two-thirds
+       (if @(rf/subscribe [:messages/loading?])
+        [:h3 "Loading messages..."]
+        [:div
          [:div.columns>div.column
           [:h3 "Messages"]
           [message-list messages]]
          [:div.columns>div.column
-          [message-form messages]]]))))
+          [message-form messages]]])])))
 
-(dom/render
-  [home]
-  (.getElementById js/document "content"))
+(defn ^:dev/after-load mount-components []
+  (rf/clear-subscription-cache!)
+  (.log js/console "Mounting Components...")
+  (dom/render [#'home] (.getElementById js/document "content"))
+  (.log js/console "Components Mounted!"))
+
+(defn init! []
+  (.log js/console "Initializing App...")
+  (rf/dispatch [:app/initialize])
+  (get-messages)
+  (mount-components))
