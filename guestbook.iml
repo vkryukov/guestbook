@@ -113,17 +113,17 @@
     <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpclient:4.5.6" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpcore-nio:4.4.10" level="project" />
     <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpcore:4.4.14" level="project" />
-    <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.10.1" level="project" />
-    <orderEntry type="library" name="Leiningen: org.clojure/clojurescript:1.10.866" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.10.3" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/clojurescript:1.10.879" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/core.rrb-vector:0.0.14" level="project" />
-    <orderEntry type="library" name="Leiningen: org.clojure/core.specs.alpha:0.2.44" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/core.specs.alpha:0.2.56" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/data.json:0.2.6" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/google-closure-library-third-party:0.0-20201211-3e6c510d" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/google-closure-library:0.0-20201211-3e6c510d" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/java.classpath:0.3.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/java.data:1.0.78" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/java.jdbc:0.7.11" level="project" />
-    <orderEntry type="library" name="Leiningen: org.clojure/spec.alpha:0.2.176" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/spec.alpha:0.2.194" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/test.check:1.1.0" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/tools.cli:1.0.206" level="project" />
     <orderEntry type="library" name="Leiningen: org.clojure/tools.logging:1.1.0" level="project" />
