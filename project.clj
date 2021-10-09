@@ -34,6 +34,7 @@
                  [org.webjars/webjars-locator "0.42"]
                  [reagent "1.1.0"]
                  [re-frame "1.2.0"]
+                 [day8.re-frame/re-frame-10x "1.1.13"]
                  [ring-webjars "0.2.0"]
                  [ring/ring-core "1.9.4"]
                  [ring/ring-defaults "0.3.3"]
